@@ -14,4 +14,4 @@ Saves the file in the local repository (use esc :wq to get out of the window if 
 Pushes the changes to github.com
 
 4. git pull                  
-Grab files from github.com (must be in the directory)
+Grab all updated files from github.com (must have your directory open)
