@@ -1,14 +1,18 @@
 # Current working file is table.py
 
-# git add 'file name'
+# First time creating a local repository on your PC/MAC
+1. Download git from: https://git-scm.com/downloads 
+2. Run the following command in terminal/command window: git clone https://github.com/harris-partners/harris-360.git
 
-# git commit -m "comment"   
+# STEPS FOR ADDING NEW FILE
+
+# 1. git add 'file name'
+
+# 2. git commit -m "comment"   
 Saves the file in the local repository (use esc :wq to get out of the window if you forget the -m in commit)
 
-# git push                  
+# 3. git push                  
 Pushes the changes to github.com
 
-# git pull                  
+# 4. git pull                  
 Grab files from github.com (must be in the directory)
-
-# Tutorial: https://www.youtube.com/watch?v=0fKg7e37bQE
