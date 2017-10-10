@@ -4,7 +4,7 @@
 1. Download git from: https://git-scm.com/downloads 
 2. Run the following command in terminal/command window: git clone https://github.com/harris-partners/harris-360.git
 
-# STEPS FOR ADDING NEW FILE
+# STEPS FOR ADDING OR UPDATING FILES
 1. git add 'file name'
 
 2. git commit -m "comment"   
