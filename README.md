@@ -5,14 +5,13 @@
 2. Run the following command in terminal/command window: git clone https://github.com/harris-partners/harris-360.git
 
 # STEPS FOR ADDING NEW FILE
+1. git add 'file name'
 
-# 1. git add 'file name'
-
-# 2. git commit -m "comment"   
+2. git commit -m "comment"   
 Saves the file in the local repository (use esc :wq to get out of the window if you forget the -m in commit)
 
-# 3. git push                  
+3. git push                  
 Pushes the changes to github.com
 
-# 4. git pull                  
+4. git pull                  
 Grab files from github.com (must be in the directory)
