@@ -33,5 +33,21 @@ for row in results:
 	print(tavnit % row)
 print(separator)
 
+#Display all the names of people we know and exclude face_ids missing both first name or last name.
+print("Here is a list of people whose face we have stored in Harris 360.")
+
+cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+cursor.execute("SELECT face_id, first_name, last_name FROM api_customer WHERE first_name IS NOT NULL AND first_name !='' AND last_name IS NOT NULL AND last_name !='' ")
+result_set = cursor.fetchall()
+for row in result_set:
+    print "%s, %s, %s" % (row["face_id"], row["first_name"], row["last_name"])
+
+#Add new entry
+
+
+
+#Line below creates a unique ID - Need to work out where to put this.
+#key = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(32)]) 
+
 cur.close()
 conn.close()
