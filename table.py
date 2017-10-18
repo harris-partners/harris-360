@@ -46,30 +46,28 @@ for row in result_set:
 
 ############################ WORK IN PROGRESS ##############################
 
-# Add new entry to database - Option 1
-'''def new_entry():
-	cur = conn.cursor()
-	cur.execute("INSERT INTO api_customer VALUES (80, '2017-10-13 01:46:00', 1, 1, 1, 1, 'Eman', 'Test', 1, 1, 1)")
-
-new_entry()'''
-
-# Add new entry to database - Option 2
+# Add new entry to database
 
 def dynamic_data_entry():
 	unix = time.time()
 	date = str(datetime.datetime.fromtimestamp(unix).strftime('%Y-%m-%d %H:%M:%S'))
-	keyword = 'Python'
 	value = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(32)])
-	cur.execute("INSERT INTO api_customer (id, created, first_name, last_name) VALUES (%s, %s, %s, %s)", (id, date, keyword, value))
+	cur.execute("INSERT INTO api_customer (id, created, first_name, last_name) VALUES (%s, %s, %s)", (id, date, value))
 	conn.commit()
 
 dynamic_data_entry()
 
+new_entry = {'id': id, 'created': date, 'first_name': %s, 'last_name': %s}
+cur.execute("INSERT INTO api_customer (id, created, first_name, last_name) VALUES (%s, %s, %s)", (id, date, value))
+conn.commit()
+
+try:
+	cur.execute("INSERT INTO ap_customer (id, created, first_name, last_name)")
+	conn.commit()
+except:
+	conn.rollback()
+
 ############################ WORK IN PROGRESS ##############################
-
-
-#Line below creates a unique ID - Need to work out where to put this.
-#key = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(32)]) 
 
 cur.close()
 conn.close()
