@@ -4,6 +4,7 @@ import random	#Need for random id generation
 import string	#Need for random id generation
 import datetime
 import time
+import smtplib
 
 conn = MySQLdb.connect(host="harrisfaceapi.ckuvqwkjly5s.ap-southeast-2.rds.amazonaws.com", port=3306, user="harris", passwd="988$_iADO_k9484ASDJFSDJ_afdsj", db="harris_face_dev")
 cur = conn.cursor() #Create a cursor for the select
@@ -44,7 +45,7 @@ result_set = cursor.fetchall()
 for row in result_set:
     print "%s, %s, %s" % (row["face_id"], row["first_name"], row["last_name"])
 
-############################ WORK IN PROGRESS ##############################
+############################ WORK IN PROGRESS #############################
 
 # Add new entry to database
 
@@ -71,7 +72,25 @@ try:
 except:
 	conn.rollback()
 
-############################ WORK IN PROGRESS ##############################
+############################ WORK IN PROGRESS #############################
+# SENDING AN EMAIL
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.starttls()
+
+fromaddr = 'emmanuel@nelaapp.com'
+frompass = 'PASSWORD'
+
+toaddr = 'emanfazio@gmail.com'
+
+msg = 'Hello, this is an email sent from Python!'
+
+
+server.login(fromaddr, frompass)
+server.sendmail(fromaddr, toaddr, msg)
+
+print('Email has been successfully sent')
+
+server.quit()
 
 cur.close()
 conn.close()
