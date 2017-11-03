@@ -5,6 +5,7 @@ import string	#Need for random id generation
 import datetime
 import time
 import smtplib
+import csv
 
 conn = MySQLdb.connect(host="harrisfaceapi.ckuvqwkjly5s.ap-southeast-2.rds.amazonaws.com", port=3306, user="harris", passwd="988$_iADO_k9484ASDJFSDJ_afdsj", db="harris_face_dev")
 cur = conn.cursor() #Create a cursor for the select
@@ -12,6 +13,12 @@ print("You have just connected to the database! You are a true legend!")
 
 cur.execute("SELECT * FROM api_customer")
 results = cur.fetchall()
+with open("api_customer_query.csv", "wb") as csv_file:              # Python 2 version
+    csv_writer = csv.writer(csv_file)
+    csv_writer.writerow([i[0] for i in cur.description]) # write headers
+    csv_writer.writerows(cur)
+
+    print('Query has been exported')
 
 # Create a table for print function
 widths = []
@@ -60,7 +67,7 @@ for row in result_set:
 
 #new_entry = {'id': id, 'created': date, 'first_name': %s, 'last_name': %s}
 
-cur.execute("CREATE UNIQUE INDEX face_id ON api_customer (face_id ASC)")
+'''cur.execute("CREATE UNIQUE INDEX face_id ON api_customer (face_id ASC)")
 conn.commit()
 
 for row in api_customer:
@@ -70,9 +77,10 @@ try:
 	cur.execute("INSERT INTO api_customer (id, created, face_id, customer_ref, face_sharpness, face_brightness, first_name, last_name, surname, company_id, loyal)")
 	conn.commit()
 except:
-	conn.rollback()
+	conn.rollback()'''
 
 ############################ WORK IN PROGRESS #############################
+
 # SENDING AN EMAIL
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
@@ -82,8 +90,7 @@ frompass = 'PASSWORD'
 
 toaddr = 'emanfazio@gmail.com'
 
-msg = 'Hello, this is an email sent from Python!'
-
+msg = 'Subject: {}\n\n{}'.format('Daily query results', 'Hello, this is an email sent from Python!') #'Hello, this is an email sent from Python!'
 
 server.login(fromaddr, frompass)
 server.sendmail(fromaddr, toaddr, msg)
