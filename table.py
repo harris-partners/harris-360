@@ -4,8 +4,15 @@ import random	#Need for random id generation
 import string	#Need for random id generation
 import datetime
 import time
+import csv #Required to import table data int CSV
+
+#Required to send email with an attachment
 import smtplib
-import csv
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
+
 
 conn = MySQLdb.connect(host="harrisfaceapi.ckuvqwkjly5s.ap-southeast-2.rds.amazonaws.com", port=3306, user="harris", passwd="988$_iADO_k9484ASDJFSDJ_afdsj", db="harris_face_dev")
 cur = conn.cursor() #Create a cursor for the select
@@ -13,9 +20,9 @@ print("You have just connected to the database! You are a true legend!")
 
 cur.execute("SELECT * FROM api_customer")
 results = cur.fetchall()
-with open("api_customer_query.csv", "wb") as csv_file:              # Python 2 version
+with open("api_customer_query.csv", "wb") as csv_file: #Python 2 version
     csv_writer = csv.writer(csv_file)
-    csv_writer.writerow([i[0] for i in cur.description]) # write headers
+    csv_writer.writerow([i[0] for i in cur.description]) #Write headers
     csv_writer.writerows(cur)
 
     print('Query has been exported')
@@ -81,23 +88,38 @@ except:
 
 ############################ WORK IN PROGRESS #############################
 
-# SENDING AN EMAIL
-server = smtplib.SMTP('smtp.gmail.com', 587)
+# SENDING AN EMAIL WITH ATTACHED QUERY CSV FILE
+email_user = 'emmanuel@nelaapp.com' # Gmail Login
+email_password = 'emanfaz1'			# Gmail Password
+email_send = 'emanfazio@gmail.com'	# Email of recipient
+
+subject = 'Daily query results'		# Email Subject
+
+msg = MIMEMultipart()
+msg['From'] = email_user
+msg['To'] = email_send
+msg['Subject'] = subject
+
+body = 'This email has been sent from Python!' # Messgae with the email
+msg.attach(MIMEText(body,'plain'))
+
+filename ='api_customer_query.csv'	# Attaching file in same folder as script
+attachment = open(filename,'rb')
+
+part = MIMEBase('application','octet-stream')
+part.set_payload((attachment).read())
+encoders.encode_base64(part)
+part.add_header('Content-Disposition',"attachment; filename= "+filename)
+
+msg.attach(part)
+text = msg.as_string()
+server = smtplib.SMTP('smtp.gmail.com',587)
 server.starttls()
-
-fromaddr = 'emmanuel@nelaapp.com'
-frompass = 'PASSWORD'
-
-toaddr = 'emanfazio@gmail.com'
-
-msg = 'Subject: {}\n\n{}'.format('Daily query results', 'Hello, this is an email sent from Python!') #'Hello, this is an email sent from Python!'
-
-server.login(fromaddr, frompass)
-server.sendmail(fromaddr, toaddr, msg)
-
-print('Email has been successfully sent')
-
+server.login(email_user,email_password)
+server.sendmail(email_user,email_send,text)
 server.quit()
+
+print('Email has been sent')
 
 cur.close()
 conn.close()

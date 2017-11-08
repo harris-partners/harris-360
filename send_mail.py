@@ -4,21 +4,21 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 
-email_user = 'emmanuel@nelaapp.com'
-email_password = 'PASSWORD'
-email_send = 'emanfazio@gmail.com'
+email_user = 'emmanuel@nelaapp.com' # Gmail Login
+email_password = 'PASSWORD'			# Gmail Password
+email_send = 'emanfazio@gmail.com'	# Email of recepient
 
-subject = 'Daily query results'
+subject = 'Daily query results'		# Email Subject
 
 msg = MIMEMultipart()
 msg['From'] = email_user
 msg['To'] = email_send
 msg['Subject'] = subject
 
-body = 'This email has been sent from Python!'
+body = 'This email has been sent from Python!'	# Message with the email
 msg.attach(MIMEText(body,'plain'))
 
-filename ='api_customer_query.csv'
+filename ='api_customer_query.csv' # Attaching file saved in same folder as script
 attachment = open(filename,'rb')
 
 part = MIMEBase('application','octet-stream')
