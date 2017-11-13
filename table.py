@@ -59,38 +59,14 @@ result_set = cursor.fetchall()
 for row in result_set:
     print "%s, %s, %s" % (row["face_id"], row["first_name"], row["last_name"])
 
-############################ WORK IN PROGRESS #############################
+# Analyse the data
 
-# Add new entry to database
 
-'''def dynamic_data_entry():
-	unix = time.time()
-	date = str(datetime.datetime.fromtimestamp(unix).strftime('%Y-%m-%d %H:%M:%S'))
-	value = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(32)])
-	cur.execute("INSERT INTO api_customer (id, created, first_name, last_name) VALUES (%s, %s, %s)", (id, date, value))
-	conn.commit()'''
 
-#dynamic_data_entry()
-
-#new_entry = {'id': id, 'created': date, 'first_name': %s, 'last_name': %s}
-
-'''cur.execute("CREATE UNIQUE INDEX face_id ON api_customer (face_id ASC)")
-conn.commit()
-
-for row in api_customer:
-	print "%s, %s, %s" % (row["face_id"])
-
-try:
-	cur.execute("INSERT INTO api_customer (id, created, face_id, customer_ref, face_sharpness, face_brightness, first_name, last_name, surname, company_id, loyal)")
-	conn.commit()
-except:
-	conn.rollback()'''
-
-############################ WORK IN PROGRESS #############################
-
+# Manual technique:
 # SENDING AN EMAIL WITH ATTACHED QUERY CSV FILE
 email_user = 'emmanuel@nelaapp.com' # Gmail Login
-email_password = 'emanfaz1'			# Gmail Password
+email_password = 'PASSWORD'			# Gmail Password
 email_send = 'emanfazio@gmail.com'	# Email of recipient
 
 subject = 'Daily query results'		# Email Subject
