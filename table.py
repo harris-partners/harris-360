@@ -1,3 +1,7 @@
+''' NOTES
+Upload the csv to an S3 bucket which can be picked up by the Xibo Client
+Epic - Instore displays are updated once a week with most recent top 3 skews in 30min intevals
+'''
 #import boto3	#Used for AWS... Not sure if required.
 import MySQLdb 	#Need for connection to SQL db
 import random	#Need for random id generation
